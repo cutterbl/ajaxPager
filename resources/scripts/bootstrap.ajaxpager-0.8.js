@@ -427,7 +427,7 @@
 				data = $self.data('ajaxPager'),
 				target = data.target;
 			
-			tmp[settings.params.start] = data.lastrecord;
+			tmp[settings.params.start] = (page-1) * settings.limit;
 			tmp[settings.params.page] = page;
 			tmp[settings.params.limit] = settings.limit;
 			if (settings.sortcolumn) {
