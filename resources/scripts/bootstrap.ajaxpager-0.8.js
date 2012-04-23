@@ -330,7 +330,7 @@
 									+ '<li class="divider-vertical"></li>';
 			if (!$.isEmptyObject(settings.filters)) {
 				ui += '<li class="dropdown">'
-						+ '<a class="dropdown-toggle" data-toggle="dropdown" href="#">Filters<b class="caret"></b></a>'
+						+ '<a class="dropdown-toggle" data-toggle="dropdown" href="#">Sort By<b class="caret"></b></a>'
 							+ '<ul class="dropdown-menu">';
 							for (var i in settings.filters){
 								ui += '<li><a href="#filter-' + i + '" class="paging-filter" rel="' + i + '">';
