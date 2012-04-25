@@ -23,14 +23,27 @@
 	// publicly accessible defaults
 	$.fn.ajaxPager.defaults = {
 		position		: 'top', // top|bottom|both
-		page			: 1,
 		class			: '', // for additional classes
+		stripedrows		: false,
+		loadtext   		: 'Loading...',
+		page			: 1,
 		limit			: 25, // number of records
+		sortcolumn		: null,
+		sortdir			: 'asc',
+		sortby			: {},
+		searchtext		: null,
 		ajaxoptions		: {
 			url			: '',
 			type		: 'POST',
 			data		: {},
 			dataType	: 'json'
+		},
+		reader			: {
+			success			: 'success',
+			message			: 'message',
+			totalpages		: 'totalpages',
+			totalrecords	: 'totalrecords',
+			root			: ''
 		},
 		params			: {
 			start	: 'start',
@@ -40,13 +53,7 @@
 			dir		: 'dir',
 			search	: 'search'
 		},
-		reader			: {
-			success			: 'success',
-			message			: 'message',
-			totalpages		: 'totalpages',
-			totalrecords	: 'totalrecords',
-			root			: ''
-		},
+		renderoutput	: null,
 		listeners: {
 			init		: null,
 			render		: null,
@@ -54,14 +61,7 @@
 			beforeload	: null,
 			load		: null,
 			destroy		: null
-		},
-		sortcolumn		: null,
-		sortdir			: 'asc',
-		filters			: {},
-		searchtext		: null,
-		renderoutput	: null,
-		stripedrows		: false,
-        loadtext   		: 'Loading...'
+		}
     };
 	
 	$.fn.ajaxPager.privatevars = {
@@ -221,9 +221,9 @@
 					icon = $('i', $(this)),
 					diricon = icon.attr('class'),
 					data = $pager.data('ajaxPager'),
-					filters = $('.paging-filter', data.pagers),
+					sortby = $('.paging-filter', data.pagers),
 					newicon = 'icon-arrow-down';
-				$('i',filters).removeClass('icon-arrow-up').removeClass('icon-arrow-down').removeClass('icon-').addClass('icon-');
+				$('i',sortby).removeClass('icon-arrow-up').removeClass('icon-arrow-down').removeClass('icon-').addClass('icon-');
 				
 				settings.sortcolumn = action;
 				if (diricon === 'icon-arrow-up') {
@@ -288,8 +288,8 @@
 					}
 					return true;
 				});
-				// if there are filters, we setup bindings
-				if (!$.isEmptyObject(settings.filters)) {
+				// if there are sortby, we setup bindings
+				if (!$.isEmptyObject(settings.sortby)) {
 					$('a.paging-filter', data.pagers).bind('click', {el: $self}, handlers.filterLinkHandler);
 				}
 				$self.data('ajaxPager', $.extend(data,{rendered: true}));
@@ -310,7 +310,7 @@
 			}
 		},
 		_buildPagerBar: function(settings){
-			var ui = '<div class="pagingbar ajaxPager">'
+			var ui = '<div class="pagingbar ajaxPager' + ((settings.class.length > 0) ? (' ' + settings.class) : '') + '">'
 						+ '<div class="container">'
 							+ '<div class="nav-collapse">'
 								+ '<ul class="nav nav-pills">'
@@ -328,11 +328,11 @@
 									+ '<li class="divider-vertical"></li>'
 									+ '<li><a href="#last" class="paging-nav" rel="last">&#187;|</a></li>'
 									+ '<li class="divider-vertical"></li>';
-			if (!$.isEmptyObject(settings.filters)) {
+			if (!$.isEmptyObject(settings.sortby)) {
 				ui += '<li class="dropdown">'
 						+ '<a class="dropdown-toggle" data-toggle="dropdown" href="#">Sort By<b class="caret"></b></a>'
 							+ '<ul class="dropdown-menu">';
-							for (var i in settings.filters){
+							for (var i in settings.sortby){
 								ui += '<li><a href="#filter-' + i + '" class="paging-filter" rel="' + i + '">';
 								if (settings.sortcolumn && i === settings.sortcolumn) {
 									if (settings.sortdir === 'asc') {
@@ -343,7 +343,7 @@
 								} else {
 									ui += '<i class="icon-"></i> ';
 								}
-								ui += settings.filters[i] + '</a>';
+								ui += settings.sortby[i] + '</a>';
 							}
 						ui += '</ul>'
 					+ '</li>';
@@ -455,10 +455,10 @@
 					// Adjust our internal data to reflect values returned from the server
 					// Valuable to change the display if a search is conducted
 					dataset = acc(d, opts.reader.root);
-					totalpages = acc(d, opts.reader.totalpages);
-					totalpages = (totalpages !== 'undefined') ? totalpages : 1;
-					totalrecords = acc(d,opts.reader.totalrecords);
-					totalrecords = (totalrecords !== undefined) ? totalrecords : dataset.length;
+					totalpages = parseInt(acc(d, opts.reader.totalpages));
+					totalpages = parseInt((totalpages !== 'undefined') ? totalpages : 1);
+					totalrecords = parseInt(acc(d,opts.reader.totalrecords));
+					totalrecords = parseInt((totalrecords !== undefined) ? totalrecords : dataset.length);
 					cp.call($self, page, totalpages, totalrecords);
 					output = (opts.renderoutput && typeof opts.renderoutput === 'function') ? opts.renderoutput.call($self, d) : d;
 					$self.trigger('beforeload');

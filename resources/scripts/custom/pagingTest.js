@@ -18,7 +18,7 @@ $(document).ready(function(){
 		position:'both',
 		limit: 10,
 		ajaxoptions: {
-			url: '/com/cc/Blog/Entries.cfc',
+			url: 'com/cc/Blog/Entries.cfc',
 			data: {
 				method: 'getEntries',
 				returnFormat: 'json'
@@ -45,7 +45,7 @@ $(document).ready(function(){
 			destroy		: testHandler
 		},
 		sortcolumn: 'title',
-		filters: {
+		sortby: {
 			title: 'Title',
 			posted: 'Date Posted',
 			views: 'Views'
@@ -55,4 +55,5 @@ $(document).ready(function(){
 		stripedrows: true
 	});
 	
+	prettyPrint();
 });

@@ -161,7 +161,7 @@
     border:1px solid #6593cf;
 }
 .mask-msg div {
-    background: url('/resources/images/loading.gif') no-repeat 5px 5px;
+    background: url('../images/loading.gif') no-repeat 5px 5px;
     line-height: 18px;
     padding: 2px;
     text-indent: 24px;

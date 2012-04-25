@@ -1,3 +1,6 @@
+Demo and Documentation
+http://examples.cutterscrossing.com/ajaxPager
+
 The ajaxPager is a JQuery + Bootstrap plugin that creates a pagination
 control bar, according to configuration, that will make remote requests
 for data. The control then passes the response to a developer defined
@@ -7,4 +10,4 @@ JSON recordset.
 
 The ajaxPager requires two files, the script and the stylesheet. The
 developer is then responsible for handling the formatting of the response
-output. This initial release is a beta, and prior to any documentation.
+output. 

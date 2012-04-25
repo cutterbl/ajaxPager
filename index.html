@@ -7,15 +7,15 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Le styles -->
-    <link href="/resources/scripts/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="resources/scripts/bootstrap/css/bootstrap.css" rel="stylesheet">
     <style type="text/css">
       body {
         padding-top: 60px;
         padding-bottom: 40px;
       }
     </style>
-    <link href="/resources/scripts/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
-	<link href="/resources/styles/custom/subnav.css" rel="stylesheet">
+    <link href="resources/styles/subnav.css" rel="stylesheet">
+	<link href="resources/scripts/google-code-prettify/distrib/google-code-prettify/prettify.css" rel="stylesheet">
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -25,7 +25,7 @@
 
   <body>
 
-    <!-- <div class="navbar navbar-fixed-top">
+    <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container-fluid">
           <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -36,22 +36,23 @@
           <a class="brand" href="http://examples.cutterscrossing.com/ajaxPager">ajaxPager</a>
           <div class="nav-collapse">
             <ul class="nav">
-              <li class="active"><a href="/ajaxPager/">Home</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#contact">Contact</a></li>
+              <li class="active"><a href="#demo">Demo</a></li>
+              <li><a href="#docs">Documentation</a></li>
+              <li><a href="#options">Options</a></li>
             </ul>
-            <p class="navbar-text pull-right">Logged in as <a href="#">username</a></p>
+            <!-- <p class="navbar-text pull-right">Logged in as <a href="#">username</a></p> -->
           </div>
         </div>
       </div>
-    </div> -->
+    </div>
 
     <div class="container-fluid">
 	  <div class="well clearfix">
         <p>The <strong>ajaxPager</strong> is a <a href="http://www.jquery.com" target="_blank">JQuery</a> + <a href="http://twitter.github.com/bootstrap/index.html" target="_blank">Bootstrap</a> plugin that creates a pagination control bar, according to configuration, that will make remote requests for data. The control then passes the response to a developer defined method to create the output. In the example, we used the <a href="http://handlebarsjs.com/" target="_blank">Handlebars</a> templating engine to create display items of each record in a returned JSON recordset.</p>
       </div>
+	
+	<!--- This is here for reference, to test new things on what would become new generated display
 	<div class="container-fluid">
-		<!--- This is here for reference, to test new things on what would become new generated display
 		<div class="row-fluid">
 			<div class="span2">&nbsp;</div>
 			<div class="span8">
@@ -103,13 +104,156 @@
 					</div>
 				</div>
 			</div>
-		</div>--->
-	</div>
+		</div>
+	</div> --->
+	
 	<div class="container-fluid">
 		<div class="row-fluid">
 			<div class="span2">&nbsp;</div>
 			<div class="span8">
+				<a name="demo"></a><h2>Demo</h2>
 				<div id="testCont"> This is where the paging content loads...</div>
+			</div>
+		</div>
+		
+		<div class="row-fluid">
+			<div class="span2">&nbsp;</div>
+			<div class="span8 well">
+				<a name="docs"></a><h2>Documentation</h2>
+					<p>The ajaxPager component requires <a href="http://www.jquery.com" target="_blank">JQuery</a> and <a href="http://twitter.github.com/bootstrap/index.html" target="_blank">Bootstrap</a> be loaded in your template, as well as the stylesheet and script used for the ajaxPager.</p>
+				<pre class="prettyprint linenums lang-html">
+&lt;!doctype html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;meta charset="utf-8"&gt;
+		&lt;head&gt;Our Test Case&lt;/head&gt;
+		&lt;link href="/resources/scripts/bootstrap/css/bootstrap.css" rel="stylesheet"&gt;
+		&lt;link href="/resources/styles/custom/subnav.css" rel="stylesheet"&gt;
+		&lt;!-- Le HTML5 shim, for IE6-8 support of HTML5 elements --&gt;
+		&lt;!--[if lt IE 9]&gt;
+			&lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
+		&lt;![endif]--&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;!-- Page Content --&gt;
+		&lt;script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.2.min.js"&gt;&lt;/script&gt;
+		&lt;script src="/resources/scripts/bootstrap/js/bootstrap.js"&gt;&lt;/script&gt;
+		&lt;script type="text/javascript" src="/resources/scripts/bootstrap.ajaxpager-0.8.js"&gt;&lt;/script&gt;
+		&lt;!-- Our custom script for our demo --&gt;
+		&lt;script type="text/javascript" src="/resources/scripts/custom/pagingTest.js"&gt;&lt;/script&gt;
+		&lt;!-- Use whatever templating method you want --&gt;
+		&lt;!-- We'll use Handlebars JS for a templating engine in our example --&gt;
+		&lt;script src="/resources/scripts/handlebars-1.0.0.0.beta.6.js"&gt;&lt;/script&gt;
+		&lt;script id="line-template" type="text/x-handlebars-template"&gt;
+			&lt;!-- Handlebars JS Template --&gt;
+		&lt;/script&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+				</pre>
+				
+				<p>In our example we're using <a href="http://handlebarsjs.com/" target="_blank">HandlebarsJS</a> as our templating engine, but you can use whatever engine you like for rendering your output. The ajaxPager will:</p>
+				
+				<ol type="a">
+					<li>Create the pager bar(s) for your container element</li>
+					<li>Make the ajax request</li>
+					<li>Track the page, record count and total records (from the response)</li>
+					<li>Take the response and process it through your method</li>
+					<li>Render your output in the primary element</li>
+				</ol>
+				
+				<p>It does most of this behind the scenes. All that's required is instantiating the ajaxPager with a valid configuration.</p>
+				<a name="options"></a><h2>Options</h2>
+				<h3>General Pager Display</h3>
+				<dl class="dl-horizontal">
+					<dt>position</dt>
+					<dd>top|bottom|both - the position(s) of the pager bars in relation to the container element (defaults to "top")</dd>
+					<dt>class</dt>
+					<dd>any additional classes to add to the pager bars when rendered</dd>
+					<dt>stripedrows</dt>
+					<dd>will apply a 'striped-row' class to every other element added to the container on data load (defaults to "false")</dd>
+					<dt>loadtext</dt>
+					<dd>the text that displays on the loading alert (defaults to "Loading")</dd>
+				</dl>
+				<h3>General Paging</h3>
+				<dl class="dl-horizontal">
+					<dt>page</dt>
+					<dd>the page of results to display (defaults to "1")</dd>
+					<dt>limit</dt>
+					<dd>the number of records to display in a page (defaults to "25")</dd>
+					<dt>sortcolumn</dt>
+					<dd>the column on which to initially sort results</dd>
+					<dt>sortdir</dt>
+					<dd>asc|desc - the sort direction (defaults to "asc" if "sortcolumn" is defined)</dd>
+					<dt>sortby</dt>
+					<dd>an object of key/value pairs, equating to a column name (key) and it's display label (value), to be used in the "Sort By" dropdown on the pager bar(s). If an object is not passed then the "Sort By" dropdown is ommitted.</dd>
+					<dt>searchtext</dt>
+					<dd>a json string of key/value pairs to pass to the remote method for filtering</dd>
+					<dt>ajaxoptions</dt>
+					<dd>standard options of a <a href="http://api.jquery.com/jQuery.ajax/" target="_blank">JQuery Ajax</a> request
+						<dl class="dl-horizontal">
+							<dt>url</dt>
+							<dd>the url to which the request is sent</dd>
+							<dt>type</dt>
+							<dd>the method type of the request (defaults to "POST")</dd>
+							<dt>data</dt>
+							<dd>an object for any extra values to be passed along with the request</dd>
+							<dt>dataType</dt>
+							<dd>the data type of the expected request response (defaults to "json")</dd>
+						</dl>
+					</dd>
+					<dt>reader</dt>
+					<dd>an object, the parameters of which define the returned response (for json based or xml(?) responses)
+						<dl class="dl-horizontal">
+							<dt>success</dt>
+							<dd>key of the "success" indicator</dd>
+							<dt>message</dt>
+							<dd>key of the "message" indicator, used when "success" is false to indicate an error</dd>
+							<dt>totalpages</dt>
+							<dd>server response indicating the total number of pages of available records for the search criteria passed</dd>
+							<dt>totalrecords</dt>
+							<dd>server response indicating the total number of records available that meet the search criteria passed</dd>
+							<dt>root</dt>
+							<dd>dot notation path to the root key of the dataset (record set) associated with the response</dd>
+						</dl>
+					</dd>
+					<dt>params</dt>
+					<dd>key/pairs that allow the developer to override the key names, of default data, that are passed in each request (each defaults to their key name)
+						<dl class="dl-horizontal">
+							<dt>start</dt>
+							<dd>the first record being requested</dd>
+							<dt>limit</dt>
+							<dd>the number of records to be returned in each response</dd>
+							<dt>page</dt>
+							<dd>the page of data being requested</dd>
+							<dt>sort</dt>
+							<dd>the column by which the data is currently being sorted by</dd>
+							<dt>dir</dt>
+							<dd>the direction by which the data is currently being sorted by</dd>
+							<dt>search</dt>
+							<dd>a json string denoting search criteria beyond those already mentioned</dd>
+						</dl>
+					</dd>
+					<dt>renderoutput</dt>
+					<dd>a function that takes the server response (function(data)) and returns the formatted data to be displayed within the container</dd>
+					<h3>Events</h3>
+					<dt>listeners</dt>
+					<dd>an object containing function methods that fire when specific events occur
+						<dl class="dl-horizontal">
+							<dt>init</dt>
+							<dd>function(event) - fires when the component has initialized, after pagers have been added, but prior to bindings being set in the "render" event</dd>
+							<dt>render</dt>
+							<dd>function(event) - fires once the pagers have been rendered, just prior to all internal bindings being put into place</dd>
+							<dt>preprocess</dt>
+							<dd>function(response) - fires upon successful request, prior to any other processing (good for data conversions prior to creating output)</dd>
+							<dt>beforeload</dt>
+							<dd>function(event) - fires after "renderoutput", but prior to output being added into the container, typically for the removal of any developer defined bindings</dd>
+							<dt>load</dt>
+							<dd>function(event) - fires after the formatted output has been added to the container, typically for adding bindings to new content</dd>
+							<dt>destroy</dt>
+							<dd>function(event) - fires in component's "destroy" method, just prior to the component's removal of bindings, data, and display</dd>
+						</dl>
+					</dd>
+				</dl>
 			</div>
 		</div>
     </div><!--/.fluid-container-->
@@ -118,11 +262,12 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.2.min.js"></script>
-    <script src="/resources/scripts/bootstrap/js/bootstrap.js"></script>
-	<script src="/resources/scripts/handlebars-1.0.0.0.beta.6.js"></script>
-	<script type="text/javascript" src="/resources/scripts/jquery-plugins/serializeCFJSON/serializeCFJSON-0.1.min.js"></script>
-	<script type="text/javascript" src="/resources/scripts/bootstrap.ajaxpager-0.8.js"></script>
-	<script type="text/javascript" src="/resources/scripts/custom/pagingTest.js"></script>
+    <script src="resources/scripts/bootstrap/js/bootstrap.js"></script>
+	<script src="resources/scripts/handlebars-1.0.0.0.beta.6.js"></script>
+	<script src="resources/scripts/jquery-plugins/serializeCFJSON/serializeCFJSON-0.1.min.js"></script>
+	<script src="resources/scripts/bootstrap.ajaxpager-0.8.min.js"></script>
+	<script src="resources/scripts/custom/pagingTest.js"></script>
+	<script src="resources/scripts/google-code-prettify/distrib/google-code-prettify/prettify.js"></script>
 	<script id="line-template" type="text/x-handlebars-template">
 		{{#each data}}
 		<div class="row-fluid data-row" id="{{this.id}}">
