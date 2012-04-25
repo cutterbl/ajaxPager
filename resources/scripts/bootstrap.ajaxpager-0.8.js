@@ -18,7 +18,7 @@
 		var changePage = null;
 		var mask = null;
 		var unmask = null;
-	};
+	}; 
 
 	// publicly accessible defaults
 	$.fn.ajaxPager.defaults = {
