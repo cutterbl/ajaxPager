@@ -28,6 +28,8 @@
 		loadtext   		: 'Loading...',
 		page			: 1,
 		limit			: 25, // number of records
+		limitdd			: true,
+		limitoptions	: [25,50,75,100],
 		sortcolumn		: null,
 		sortdir			: 'asc',
 		sortby			: {},
@@ -141,6 +143,12 @@
 					}
 					$self.unbind('.ajaxPager');
 					$('a.paging-nav', data.pagers).unbind('click');
+					if (!$.isEmptyObject(settings.sortby)) {
+						$('a.paging-filter', data.pagers).unbind('click');
+					}
+					if (settings.limitdd) {
+						$('a.paging-limit', data.pagers).unbind('click');
+					}
 					$('.navbar-form', data.pagers).unbind('submit');
 					$('.navbar-form input', data.pagers).unbind('keypress');
 					$self.html(data.origcontent);
@@ -218,7 +226,7 @@
 				event.preventDefault();
 				var $pager = event.data.el,
 					action = $(this).attr('rel'),
-					icon = $('i', $(this)),
+					icon = $('i', $('a[rel="' + action + '"]')),
 					diricon = icon.attr('class'),
 					data = $pager.data('ajaxPager'),
 					sortby = $('.paging-filter', data.pagers),
@@ -236,6 +244,24 @@
 					settings.sortdir = 'desc';
 				}
 				icon.removeClass('icon-').addClass(newicon);
+				$('li.dropdown.open').removeClass('open');
+				//console.log(settings.sortcolumn, settings.sortdir);
+				$.ajaxPager._makeRequest.call($pager, settings.page);
+				return false;
+			},
+			limitLinkHandler: function(event) {
+				event.preventDefault();
+				var $pager = event.data.el,
+					action = $(this).attr('rel'),
+					newlimit = $(this).text(),
+					icon = $('i', $('a[rel="' + action + '"]')),
+					diricon = icon.attr('class'),
+					data = $pager.data('ajaxPager'),
+					limitby = $('.paging-limit', data.pagers);
+				settings.limit = newlimit;
+				$('i',limitby).removeClass('icon-chevron-right').removeClass('icon-').addClass('icon-');
+				icon.removeClass('icon-').addClass('icon-chevron-right');
+				$('li.dropdown.open').removeClass('open');
 				//console.log(settings.sortcolumn, settings.sortdir);
 				$.ajaxPager._makeRequest.call($pager, settings.page);
 				return false;
@@ -292,6 +318,9 @@
 				if (!$.isEmptyObject(settings.sortby)) {
 					$('a.paging-filter', data.pagers).bind('click', {el: $self}, handlers.filterLinkHandler);
 				}
+				if (settings.limitdd) {
+					$('a.paging-limit', data.pagers).bind('click', {el: $self}, handlers.limitLinkHandler);
+				}
 				$self.data('ajaxPager', $.extend(data,{rendered: true}));
 				//console.log('in render ', $self.data('ajaxPager'));
 				$self.trigger('pagechange', settings.page);
@@ -328,6 +357,17 @@
 									+ '<li class="divider-vertical"></li>'
 									+ '<li><a href="#last" class="paging-nav" rel="last">&#187;|</a></li>'
 									+ '<li class="divider-vertical"></li>';
+			if (settings.limitdd) {
+				ui += '<li class="dropdown">'
+					+ '<a class="dropdown-toggle" data-toggle="dropdown" href="#">Limit<b class="caret"></b></a>'
+						+ '<ul class="dropdown-menu">';
+						for (var i = 0; i < settings.limitoptions.length; i++) {
+							ui += '<li><a href="#limit-' + settings.limitoptions[i] + '" class="paging-limit" rel="' + settings.limitoptions[i] + '"><i class="icon-' + ((settings.limitoptions[i] === settings.limit) ? 'chevron-right' : '') + '"></i>' + settings.limitoptions[i] + '</a></li>';
+						}
+						ui += '</ul>'
+					+ '</li>'
+					+ '<li class="divider-vertical"></li>';
+			}
 			if (!$.isEmptyObject(settings.sortby)) {
 				ui += '<li class="dropdown">'
 						+ '<a class="dropdown-toggle" data-toggle="dropdown" href="#">Sort By<b class="caret"></b></a>'
@@ -346,7 +386,8 @@
 								ui += settings.sortby[i] + '</a>';
 							}
 						ui += '</ul>'
-					+ '</li>';
+					+ '</li>'
+					+ '<li class="divider-vertical"></li>';
 			}
 							ui += '</ul>'
 								+'<span class="pull-right navbar-text pagingbar-counts" style="margin-right:20px;">'
