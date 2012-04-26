@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -15,7 +15,7 @@
       }
     </style>
     <link href="resources/styles/subnav.css" rel="stylesheet">
-	<link href="resources/scripts/google-code-prettify/distrib/google-code-prettify/prettify.css" rel="stylesheet">
+	<link href="resources/scripts/google-code-prettify/prettify.css" rel="stylesheet">
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -125,30 +125,38 @@
 				<pre class="prettyprint linenums lang-html">
 &lt;!doctype html&gt;
 &lt;html&gt;
-	&lt;head&gt;
-		&lt;meta charset="utf-8"&gt;
-		&lt;head&gt;Our Test Case&lt;/head&gt;
-		&lt;link href="/resources/scripts/bootstrap/css/bootstrap.css" rel="stylesheet"&gt;
-		&lt;link href="/resources/styles/custom/subnav.css" rel="stylesheet"&gt;
-		&lt;!-- Le HTML5 shim, for IE6-8 support of HTML5 elements --&gt;
-		&lt;!--[if lt IE 9]&gt;
-			&lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
-		&lt;![endif]--&gt;
-	&lt;/head&gt;
-	&lt;body&gt;
-		&lt;!-- Page Content --&gt;
-		&lt;script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.2.min.js"&gt;&lt;/script&gt;
-		&lt;script src="/resources/scripts/bootstrap/js/bootstrap.js"&gt;&lt;/script&gt;
-		&lt;script type="text/javascript" src="/resources/scripts/bootstrap.ajaxpager-0.8.js"&gt;&lt;/script&gt;
-		&lt;!-- Our custom script for our demo --&gt;
-		&lt;script type="text/javascript" src="/resources/scripts/custom/pagingTest.js"&gt;&lt;/script&gt;
-		&lt;!-- Use whatever templating method you want --&gt;
-		&lt;!-- We'll use Handlebars JS for a templating engine in our example --&gt;
-		&lt;script src="/resources/scripts/handlebars-1.0.0.0.beta.6.js"&gt;&lt;/script&gt;
-		&lt;script id="line-template" type="text/x-handlebars-template"&gt;
-			&lt;!-- Handlebars JS Template --&gt;
-		&lt;/script&gt;
-	&lt;/body&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8"&gt;
+        &lt;head&gt;Our Test Case&lt;/head&gt;
+        &lt;link href="/resources/scripts/bootstrap/css/bootstrap.css" rel="stylesheet"&gt;
+        &lt;link href="/resources/styles/custom/subnav.css" rel="stylesheet"&gt;
+        &lt;!-- Le HTML5 shim, for IE6-8 support of HTML5 elements --&gt;
+        &lt;!--[if lt IE 9]&gt;
+            &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
+        &lt;![endif]--&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div class="container-fluid"&gt;
+            &lt;div class="row-fluid"&gt;
+                &lt;div class="span2"&gt;&nbsp;&lt;/div&gt;
+                &lt;div class="span8"&gt;
+                    &lt;!-- Our Paged Container --&gt;
+                    &lt;div id="testCont"&gt; This is where the paging content loads...&lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.2.min.js"&gt;&lt;/script&gt;
+        &lt;script src="/resources/scripts/bootstrap/js/bootstrap.js"&gt;&lt;/script&gt;
+        &lt;script type="text/javascript" src="/resources/scripts/bootstrap.ajaxpager-0.8.js"&gt;&lt;/script&gt;
+        &lt;!-- Our custom script for our demo --&gt;
+        &lt;script type="text/javascript" src="/resources/scripts/custom/pagingTest.js"&gt;&lt;/script&gt;
+        &lt;!-- Use whatever templating method you want --&gt;
+        &lt;!-- We'll use Handlebars JS for a templating engine in our example --&gt;
+        &lt;script src="/resources/scripts/handlebars-1.0.0.0.beta.6.js"&gt;&lt;/script&gt;
+        &lt;script id="line-template" type="text/x-handlebars-template"&gt;
+            &lt;!-- Handlebars JS Template --&gt;
+        &lt;/script&gt;
+    &lt;/body&gt;
 &lt;/html&gt;
 				</pre>
 				
@@ -175,12 +183,29 @@
 					<dt>loadtext</dt>
 					<dd>the text that displays on the loading alert (defaults to "Loading")</dd>
 				</dl>
+				<pre class="prettyprint linenums lang-js">
+$(document).ready(function(){
+    // Other stuff
+
+    $('div#testCont').ajaxPager({
+        position: 'both',
+        class: 'someclass',
+        stripedrows: true,
+        loadtext: 'Retrieving your data...',
+        ...
+    });
+});
+				</pre>
 				<h3>General Paging</h3>
 				<dl class="dl-horizontal">
 					<dt>page</dt>
 					<dd>the page of results to display (defaults to "1")</dd>
 					<dt>limit</dt>
 					<dd>the number of records to display in a page (defaults to "25")</dd>
+					<dt>limitdd</dt>
+					<dd>boolean to determine if the "Limit" dropdown will display (defaults to "true")</dd>
+					<dt>limitoptions</dt>
+					<dd>an array of numeric values, dilineating the number of records per page (defaults to "[25,50,75,100]")</dd>
 					<dt>sortcolumn</dt>
 					<dd>the column on which to initially sort results</dd>
 					<dt>sortdir</dt>
@@ -189,10 +214,31 @@
 					<dd>an object of key/value pairs, equating to a column name (key) and it's display label (value), to be used in the "Sort By" dropdown on the pager bar(s). If an object is not passed then the "Sort By" dropdown is ommitted.</dd>
 					<dt>searchtext</dt>
 					<dd>a json string of key/value pairs to pass to the remote method for filtering</dd>
-					<dt>limitdd</dt>
-					<dd>boolean to determine if the "Limit" dropdown will display (defaults to "true")</dd>
-					<dt>limitoptions</dt>
-					<dd>an array of numeric values, dilineating the number of records per page (defaults to "[25,50,75,100]")</dd>
+				</dl>
+				<pre class="prettyprint linenums lang-js">
+$(document).ready(function(){
+    //Other stuff
+
+    $('div#testCont').ajaxPager({
+        ...
+        page: 1,
+        limit: 10,
+        limitdd: true,
+        limitoptions: [10,20,30,40,50],
+        sortcolumn: 'title',
+        sortdir: 'asc',
+        sortby: {
+            title: 'Title',
+            posted: 'Date Posted',
+            views: 'Views'
+        },
+        searchtext: '{"title":"ColdFusion"}',
+        ...
+    });
+});
+				</pre>
+				<h3>Remote Request</h3>
+				<dl class="dl-horizontal">
 					<dt>ajaxoptions</dt>
 					<dd>standard options of a <a href="http://api.jquery.com/jQuery.ajax/" target="_blank">JQuery Ajax</a> request
 						<dl class="dl-horizontal">
@@ -240,7 +286,43 @@
 					</dd>
 					<dt>renderoutput</dt>
 					<dd>a function that takes the server response (function(data)) and returns the formatted data to be displayed within the container</dd>
-					<h3>Events</h3>
+				</dl>
+				<pre class="prettyprint linenums lang-js">
+$(document).ready(function(){
+    // Reference and Compile the Handlebars template
+    var tplContent = $('#line-template').html();
+    var lineTpl = Handlebars.compile(tplContent);
+
+    $('div#testCont').ajaxPager({
+        ...
+        ajaxoptions: {
+            url: 'com/cc/Blog/Entries.cfc',
+            data: {
+                method: 'getEntries',
+                returnFormat: 'json'
+            },
+            dataType: 'json'
+        },
+        params: {
+            page: 'pageIndex',
+            limit: 'pageSize',
+            sort: 'sortCol',
+            dir: 'sortDir'
+        },
+        reader: {
+            success: 'success',
+            message: 'message',
+            totalpages: 'pageCount',
+            totalrecords: 'recordCount',
+            root: 'data'
+        },
+        renderoutput: lineTpl, // Apply the Handlebars template to the output
+        ...
+    });
+});
+				</pre>
+				<h3>Events</h3>
+				<dl class="dl-horizontal">
 					<dt>listeners</dt>
 					<dd>an object containing function methods that fire when specific events occur
 						<dl class="dl-horizontal">
@@ -259,6 +341,45 @@
 						</dl>
 					</dd>
 				</dl>
+				<pre class="prettyprint linenums lang-js">
+$(document).ready(function(){
+    ...
+    var testHandler = function (){
+        console.log(arguments);
+    }
+
+    $('div#testCont').ajaxPager({
+        ...
+        listeners: {
+            init: testHandler,
+            render: testHandler,
+            preprocess: $.serializeCFJSON, // Convert native CF query json to standard name/value json
+            beforeload	: testHandler,
+            load		: testHandler,
+            destroy		: testHandler
+        }
+    });
+});
+				</pre>
+				<p>The only thing you really require now is a template for your templating engine. Some kind of definition for how you want each item of the dataset to be rendered. For the above example we used something very basic, using the <a href="http://www.handlebarsjs.com" target="_blank">Handlebars JS</a> engine.</p>
+				<pre class="prettyprint linenums lang-html">
+&lt;script id="line-template" type="text/x-handlebars-template"&gt;
+    {{#each data}}
+    &lt;div class="row-fluid data-row" id="{{this.id}}"&gt;
+        &lt;div class="span2"&gt;
+            {{this.posted}}
+        &lt;/div&gt;
+        &lt;div class="span9"&gt;
+            {{this.title}}
+        &lt;/div&gt;
+        &lt;div class="span1"&gt;
+            {{this.views}}
+        &lt;/div&gt;
+    &lt;/div&gt;
+    {{/each}}
+&lt;/script&gt;
+				</pre>
+				<p>That's it! Nothing to it! The pager will keep track of what page you're on, change your record counts, make and process your ajax requests, all behind the scenes.</p>
 			</div>
 		</div>
     </div><!--/.fluid-container-->
@@ -272,9 +393,9 @@
 	<script src="resources/scripts/jquery-plugins/serializeCFJSON/serializeCFJSON-0.1.min.js"></script>
 	<script src="resources/scripts/bootstrap.ajaxpager-0.8.min.js"></script>
 	<script src="resources/scripts/custom/pagingTest.js"></script>
-	<script src="resources/scripts/google-code-prettify/distrib/google-code-prettify/prettify.js"></script>
+	<script src="resources/scripts/google-code-prettify/prettify.js"></script>
 	<script id="line-template" type="text/x-handlebars-template">
-		{{#each data}}
+		{{#each getEntries}}
 		<div class="row-fluid data-row" id="{{this.id}}">
 			<div class="span2">
 				{{this.posted}}

@@ -2,16 +2,8 @@ $(document).ready(function(){
 	var tplContent = $('#line-template').html();
 	var lineTpl = Handlebars.compile(tplContent);
 	
-	var convertResponse = function (data){
-		return $.serializeCFJSON(data);
-	}
-	
-	var createOutput = function(data) {
-		return lineTpl(data);
-	}
-	
 	var testHandler = function (){
-		console.log(arguments);
+		//console.log(arguments);
 	}
 	
 	$('div#testCont').ajaxPager({
@@ -34,12 +26,12 @@ $(document).ready(function(){
 		reader: {
 			totalpages: 'pageCount',
 			totalrecords: 'recordCount',
-			root: 'data'
+			root: 'getEntries'
 		},
 		listeners: {
 			init: testHandler,
 			render: testHandler,
-			preprocess: convertResponse,
+			preprocess: $.serializeCFJSON,
 			beforeload	: testHandler,
 			load		: testHandler,
 			destroy		: testHandler
@@ -51,7 +43,7 @@ $(document).ready(function(){
 			views: 'Views'
 		},
 		//searchtext: '{"title":"ColdFusion"}',
-		renderoutput: createOutput,
+		renderoutput: lineTpl,
 		stripedrows: true
 	});
 	
