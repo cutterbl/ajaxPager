@@ -195,6 +195,9 @@
 							pagers.addClass(newvalue);
 						}
 						break;
+					case "searchtext":
+						$self.trigger('pagechange', 1);
+						break;
 				}
 			},
 			jumpFormHandler: function(event){
