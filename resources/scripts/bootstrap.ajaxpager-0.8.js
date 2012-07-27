@@ -1,3 +1,8 @@
+/**
+ * @depends /core/jquery-1.7.2.js
+ * @depends /bootstrap/bootstrap.js
+ * @depends /bootstrap/html5.js
+ */
 (function($) {
 
 	$.fn.ajaxPager = function(options) {
@@ -23,7 +28,7 @@
 	// publicly accessible defaults
 	$.fn.ajaxPager.defaults = {
 		position		: 'top', // top|bottom|both
-		class			: '', // for additional classes
+		classes			: '', // for additional classes
 		stripedrows		: false,
 		loadtext   		: 'Loading...',
 		page			: 1,
@@ -173,6 +178,11 @@
 					}
 				})
 				return;
+			},
+			reload: function() {
+				var $self = $(this),
+					data = $(this).data('ajaxPager');
+				$.ajaxPager._makeRequest.call($self, settings.page);
 			}
 		},
 		handlers: {
@@ -189,7 +199,7 @@
 							$self.trigger('pagechange', newvalue);
 						}
 						break;
-					case "class":
+					case "classes":
 						var pagers = data.pagers;
 						if (!pagers.hasClass(newvalue)) {
 							pagers.addClass(newvalue);
@@ -342,24 +352,25 @@
 			}
 		},
 		_buildPagerBar: function(settings){
-			var ui = '<div class="pagingbar ajaxPager' + ((settings.class.length > 0) ? (' ' + settings.class) : '') + '">'
-						+ '<div class="container">'
-							+ '<div class="nav-collapse">'
-								+ '<ul class="nav nav-pills">'
-									+ '<li><a href="#first" class="paging-nav" rel="first">|&#171;</a></li>'
-									+ '<li class="divider-vertical"></li>'
-									+ '<li><a href="#previous" class="paging-nav" rel="previous">&#171;</a></li>'
-									+ '<li class="divider-vertical"></li>'
-								+ '</ul>'
-								+ '<form name="jump" class="navbar-form pull-left">'
-									+ '<strong>Page</strong> <input type="text" name="page" value="0" style="width:25px;" /> <strong>of <span class="total-pages">0</span></strong>'
-								+ '</form>'
-								+ '<ul class="nav nav-pills">'
-									+ '<li class="divider-vertical"></li>'
-									+ '<li><a href="#next" class="paging-nav" rel="next">&#187;</a></li>'
-									+ '<li class="divider-vertical"></li>'
-									+ '<li><a href="#last" class="paging-nav" rel="last">&#187;|</a></li>'
-									+ '<li class="divider-vertical"></li>';
+			var ui = '<div class="pagingbar ajaxPager' + ((settings.classes.length > 0) ? (' ' + settings.classes) : '') + '">'
+						+ '<div class="pagingbar-inner">'
+							+ '<div class="container">'
+								+ '<div class="nav-collapse">'
+									+ '<ul class="nav nav-pills">'
+										+ '<li><a href="#first" class="paging-nav" rel="first">|&#171;</a></li>'
+										+ '<li class="divider-vertical"></li>'
+										+ '<li><a href="#previous" class="paging-nav" rel="previous">&#171;</a></li>'
+										+ '<li class="divider-vertical"></li>'
+									+ '</ul>'
+									+ '<form name="jump" class="navbar-form pull-left">'
+										+ '<strong>Page</strong> <input type="text" name="page" value="0" style="width:25px;" /> <strong>of <span class="total-pages">0</span></strong>'
+									+ '</form>'
+									+ '<ul class="nav nav-pills">'
+										+ '<li class="divider-vertical"></li>'
+										+ '<li><a href="#next" class="paging-nav" rel="next">&#187;</a></li>'
+										+ '<li class="divider-vertical"></li>'
+										+ '<li><a href="#last" class="paging-nav" rel="last">&#187;|</a></li>'
+										+ '<li class="divider-vertical"></li>';
 			if (settings.limitdd) {
 				ui += '<li class="dropdown">'
 					+ '<a class="dropdown-toggle" data-toggle="dropdown" href="#">Limit<b class="caret"></b></a>'
@@ -398,7 +409,8 @@
 								+ '</span>'
 							+ '</div>'
 						+ '</div>'
-					+ '</div>';
+					+ '</div>'
+				+ '</div>';
 			return ui;
 		},
 		_maskContent: function (label) {
