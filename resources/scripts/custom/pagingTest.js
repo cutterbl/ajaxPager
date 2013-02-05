@@ -6,9 +6,10 @@ $(document).ready(function(){
 		//console.log(arguments);
 	}
 	
-	$('div#testCont').ajaxPager({
+	$('div#testCont').pager({
 		position:'both',
-		limit: 10,
+		//limit: 10,
+		inverse: true,
 		ajaxoptions: {
 			url: 'com/cc/Blog/Entries.cfc',
 			data: {

@@ -14,8 +14,8 @@
         padding-bottom: 40px;
       }
     </style>
-    <link href="resources/styles/bootstrap.ajaxpager/bootstrap.ajaxpager-2.0.css" rel="stylesheet">
-    <link href="resources/scripts/google-code-prettify/prettify.css" rel="stylesheet">
+    <link href="resources/styles/pagingbar.css" rel="stylesheet">
+  <link href="resources/scripts/google-code-prettify/prettify.css" rel="stylesheet">
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -49,17 +49,56 @@
     <div class="container-fluid">
     <div class="well clearfix">
         <p>The <strong>ajaxPager</strong> is a <a href="http://www.jquery.com" target="_blank">JQuery</a> + <a href="http://twitter.github.com/bootstrap/index.html" target="_blank">Bootstrap</a> plugin that creates a pagination control bar, according to configuration, that will make remote requests for data. The control then passes the response to a developer defined method to create the output. In the example, we used the <a href="http://handlebarsjs.com/" target="_blank">Handlebars</a> templating engine to create display items of each record in a returned JSON recordset.</p>
-        
-        <p><strong>Bootstrap ajaxPager 2.0</strong> was written with JQuery 1.9.0 and Bootstrap 2.2.2. You are welcome to test with earlier versions of either library, but this is optimized for these updates.</p>
-        
-        <p>ajaxPager is available on <a href="https://github.com/cutterbl/ajaxPager" target="_blank">GitHub</a>.</p>
+    <p>ajaxPager is available on <a href="https://github.com/cutterbl/ajaxPager" target="_blank">GitHub</a>.</p>
       </div>
   
   <!--- This is here for reference, to test new things on what would become new generated display --->
   <div class="container-fluid">
-    <!-- <div class="row-fluid">
+    <div class="row-fluid">
       <div class="span2">&nbsp;</div>
       <div class="span8">
+        <!-- <div class="pagingbar">
+          <div class="pagingbar-inner">
+            <div class="container">
+              <div class="nav-collapse">
+                <ul class="nav nav-pills">
+                  <li><a href="#">|&#171;</a></li>
+                  <li class="divider-vertical"></li>
+                  <li><a href="#">&#171;</a></li>
+                  <li class="divider-vertical"></li>
+                </ul>
+                <form name="jump" class="navbar-form pull-left">
+                  <strong>Page</strong> <input type="text" name="page" value="1" style="width:25px;" /> <strong>of 12</strong>
+                </form>
+                <ul class="nav nav-pills">
+                  <li class="divider-vertical"></li>
+                  <li><a href="#" class="disabled">&#187;</a></li>
+                  <li class="divider-vertical"></li>
+                  <li><a href="#" class="disabled">&#187;|</a></li>
+                  <li class="divider-vertical"></li>
+                </ul>
+                <span class="nav pull-right navbar-text">
+                  <strong>Showing Records 1 - 25 of 139</strong>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div> -->
+        
+        <!-- <div class="navbar">
+          <div class="btn-group">
+            <button class="btn"><i class="icon-fast-backward"></i></button>
+            <button class="btn"><i class="icon-backward"></i></button>
+          </div>
+            <form name="jump" class="navbar-form navbar-text pull-left">
+              <strong>Page</strong> <input type="text" name="page" value="1" style="width:25px;" /> <strong>of 12</strong>
+            </form>
+          <div class="btn-group">
+            <button class="btn disabled"><i class="icon-fast-forward"></i></button>
+            <button class="btn"><i class="icon-forward"></i></button>
+          </div>
+        </div>
+        
         <div class="navbar navbar-inverse ajaxPager">
           <div class="navbar-inner">
             <div class="container">
@@ -113,10 +152,58 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
+        
+        <!-- <div class="pagingbar">
+          <div class="container">
+            <div class="nav-collapse">
+              <ul class="nav nav-pills">
+                <li><a href="#">|&#171;</a></li>
+                <li class="divider-vertical"></li>
+                <li><a href="#">&#171;</a></li>
+                <li class="divider-vertical"></li>
+              </ul>
+              <form name="jump" class="navbar-form pull-left">
+                <strong>Page</strong> <input type="text" name="page" value="1" style="width:25px;" /> <strong>of 12</strong>
+              </form>
+              <ul class="nav nav-pills">
+                <li class="divider-vertical"></li>
+                <li><a href="#">&#187;</a></li>
+                <li class="divider-vertical"></li>
+                <li><a href="#">&#187;|</a></li>
+                <li class="divider-vertical"></li>
+                <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Dropdown<b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a href="#">Action</a>
+                    </li>
+                    <li>
+                      <a href="#">Another action</a>
+                    </li>
+                    <li>
+                      <a href="#">Something else here</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li class="nav-header">Nav header</li>
+                    <li>
+                      <a href="#">Separated link</a>
+                    </li>
+                    <li>
+                      <a href="#">One more separated link</a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+              <span class="pull-right navbar-text" style="margin-right:20px;">
+                <strong>Showing Records 1 - 25 of 139</strong>
+              </span>
+            </div>
+          </div>
+        </div> -->
       </div>
     </div>
-  </div> -->
+  </div>
   
   <div class="container-fluid">
     <div class="row-fluid">
@@ -139,7 +226,7 @@
         &lt;meta charset="utf-8"&gt;
         &lt;head&gt;Our Test Case&lt;/head&gt;
         &lt;link href="/resources/scripts/bootstrap/css/bootstrap.css" rel="stylesheet"&gt;
-        &lt;link href="/resources/styles/bootstrap.ajaxpager/bootstrap.ajaxpager-2.0.css" rel="stylesheet"&gt;
+        &lt;link href="/resources/styles/custom/subnav.css" rel="stylesheet"&gt;
         &lt;!-- Le HTML5 shim, for IE6-8 support of HTML5 elements --&gt;
         &lt;!--[if lt IE 9]&gt;
             &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
@@ -155,17 +242,16 @@
                 &lt;/div&gt;
             &lt;/div&gt;
         &lt;/div&gt;
-        &lt;script src="http://code.jquery.com/jquery-1.9.0.js"&gt;&lt;/script&gt;
-        &lt;script src="http://code.jquery.com/jquery-migrate-1.1.0.js"&gt;&lt;/script&gt;
+        &lt;script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.2.min.js"&gt;&lt;/script&gt;
         &lt;script src="/resources/scripts/bootstrap/js/bootstrap.js"&gt;&lt;/script&gt;
-        &lt;script type="text/javascript" src="/resources/scripts/bootstrap.ajaxpager/bootstrap.ajaxpager-2.0.js"&gt;&lt;/script&gt;
+        &lt;script type="text/javascript" src="/resources/scripts/bootstrap.ajaxpager-0.8.js"&gt;&lt;/script&gt;
         &lt;!-- Our custom script for our demo --&gt;
         &lt;script type="text/javascript" src="/resources/scripts/custom/pagingTest.js"&gt;&lt;/script&gt;
         &lt;!-- Use whatever templating method you want --&gt;
         &lt;!-- We'll use Handlebars JS for a templating engine in our example --&gt;
-        &lt;script src="/resources/scripts/handlebarsjs/handlebarsjs-1.0.rc.2.js"&gt;&lt;/script&gt;
+        &lt;script src="/resources/scripts/handlebars-1.0.0.0.beta.6.js"&gt;&lt;/script&gt;
         &lt;script id="line-template" type="text/x-handlebars-template"&gt;
-            &lt;!-- HandlebarsJS Template --&gt;
+            &lt;!-- Handlebars JS Template --&gt;
         &lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
@@ -193,14 +279,12 @@
           <dd>will apply a 'striped-row' class to every other element added to the container on data load (defaults to "false")</dd>
           <dt>loadtext</dt>
           <dd>the text that displays on the loading alert (defaults to "Loading")</dd>
-          <dt>inverse</dt>
-          <dd>applies the Bootstrap 'inverse' class to the pagingbar (defaults to "false)</dd>
         </dl>
         <pre class="prettyprint linenums lang-js">
 $(document).ready(function(){
     // Other stuff
 
-    $('div#testCont').pager({
+    $('div#testCont').ajaxPager({
         position: 'both',
         class: 'someclass',
         stripedrows: true,
@@ -232,7 +316,7 @@ $(document).ready(function(){
 $(document).ready(function(){
     //Other stuff
 
-    $('div#testCont').pager({
+    $('div#testCont').ajaxPager({
         ...
         page: 1,
         limit: 10,
@@ -306,7 +390,7 @@ $(document).ready(function(){
     var tplContent = $('#line-template').html();
     var lineTpl = Handlebars.compile(tplContent);
 
-    $('div#testCont').pager({
+    $('div#testCont').ajaxPager({
         ...
         ajaxoptions: {
             url: 'com/cc/Blog/Entries.cfc',
@@ -361,14 +445,15 @@ $(document).ready(function(){
         console.log(arguments);
     }
 
-    $('div#testCont').pager({
+    $('div#testCont').ajaxPager({
         ...
         listeners: {
             init: testHandler,
             render: testHandler,
             preprocess: $.serializeCFJSON, // Convert native CF query json to standard name/value json
             beforeload  : testHandler,
-            load    : testHandler
+            load    : testHandler,
+            destroy   : testHandler
         }
     });
 });
@@ -402,25 +487,25 @@ $(document).ready(function(){
     <script src="http://code.jquery.com/jquery-1.9.0.js"></script>
     <script src="http://code.jquery.com/jquery-migrate-1.1.0.js"></script>
     <script src="resources/scripts/bootstrap/js/bootstrap.js"></script>
-    <script src="resources/scripts/handlebarsjs/handlebarsjs-1.0.rc.2.js"></script>
-    <script src="resources/scripts/jquery-plugins/serializeCFJSON/serializeCFJSON-0.1.min.js"></script>
-    <script src="resources/scripts/bootstrap.ajaxpager/bootstrap.ajaxpager-2.0.js"></script>
-    <script src="resources/scripts/custom/pagingTest.js"></script>
-    <script src="resources/scripts/google-code-prettify/prettify.js"></script>
-    <script id="line-template" type="text/x-handlebars-template">
-      {{#each getEntries}}
-      <div class="row-fluid data-row" id="{{this.id}}">
-        <div class="span2">
-          {{this.posted}}
-        </div>
-        <div class="span9">
-          {{this.title}}
-        </div>
-        <div class="span1">
-          {{this.views}}
-        </div>
+  <script src="resources/scripts/handlebars-1.0.0.0.beta.6.js"></script>
+  <script src="resources/scripts/jquery-plugins/serializeCFJSON/serializeCFJSON-0.1.min.js"></script>
+  <script src="resources/scripts/bootstrap.ajaxpager-2.0.js"></script>
+  <script src="resources/scripts/custom/pagingTest.js"></script>
+  <script src="resources/scripts/google-code-prettify/prettify.js"></script>
+  <script id="line-template" type="text/x-handlebars-template">
+    {{#each getEntries}}
+    <div class="row-fluid data-row" id="{{this.id}}">
+      <div class="span2">
+        {{this.posted}}
       </div>
-      {{/each}}
-    </script>
+      <div class="span9">
+        {{this.title}}
+      </div>
+      <div class="span1">
+        {{this.views}}
+      </div>
+    </div>
+    {{/each}}
+  </script>
   </body>
 </html>
