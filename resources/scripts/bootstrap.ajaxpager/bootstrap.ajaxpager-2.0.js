@@ -147,8 +147,8 @@
     }
     
     , _updatePageButtons: function () {
-      this.$startlinks.toggleClass("disabled", (this.options.page === 1));
-      this.$endlinks.toggleClass("disabled", (this.options.page === this.private.totalpages));
+      this.$startlinks.parent().toggleClass("disabled", (this.options.page === 1));
+      this.$endlinks.parent().toggleClass("disabled", (this.options.page === this.private.totalpages));
     }
     
     , _updateLimit: function (e) {
@@ -158,8 +158,8 @@
         , val = data.limit
         , itags = $("li>a>i", this.$limitdd);
       this.options.limit = val;
-      itags.removeClass("icon-chevron-right").addClass("icon-");
-      el.children("i").removeClass("icon-").addClass("icon-chevron-right");
+      itags.removeClass("glyphicon glyphicon-chevron-right").addClass("glyphicon glyphicon-");
+      el.children("i").removeClass("glyphicon glyphicon-").addClass("glyphicon glyphicon-chevron-right");
       el.closest("li.dropdown.open").removeClass("open");
       this.reload();
       return false;
@@ -173,8 +173,8 @@
         , itags = $("li>a>i", this.$sortby)
         , currClass = $("i", el).attr("class")
         , data = el.data() // data of the link that was clicked
-        , icnUp = "icon-arrow-up"
-        , icnDwn = "icon-arrow-down"
+        , icnUp = "glyphicon glyphicon-arrow-up"
+        , icnDwn = "glyphicon glyphicon-arrow-down"
         , iPlcr = "icon-"
         , newIcon = icnDwn;
       
@@ -311,36 +311,43 @@
     }
   
     , _buildPagerBar: function (settings) {
-      var ui = '<div class="navbar' + ((settings.inverse) ? ' navbar-inverse' : '') + ' ajaxPager' + ((settings.classes.length > 0) ? (' ' + settings.classes) : '') + '">'
-        + '<div class="navbar-inner">'
-          + '<div class="container">'
-            + '<a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar' + ((settings.inverse) ? '-inverse' : '') + '-collapse">'
-              + '<span class="icon-bar"></span>'
-              + '<span class="icon-bar"></span>'
-              + '<span class="icon-bar"></span>'
-            + '</a>'
-            + '<div class="nav-collapse collapse navbar' + ((settings.inverse) ? '-inverse' : '') + '-collapse">'
-              + '<ul class="nav">'
-                + '<li><a href="#" data-pagingaction="first" class="paging-nav startlink"><i class="icon-fast-backward' + ((settings.inverse) ? ' icon-white' : '') + '"></i></a></li>'
+      var ui = '<div class="navbar' + ((settings.inverse) ? ' navbar-inverse' : ' navbar-default') + ' ajaxPager' + ((settings.classes.length > 0) ? (' ' + settings.classes) : '') + '">'
+        
+          + '<div class="container-fluid">'
+          +'<div class="navbar-header">'
+            +'<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#pagination-1">'
+              +'<span class="sr-only">Toggle navigation</span>'
+              +'<span class="icon-bar"></span>'
+              +'<span class="icon-bar"></span>'
+              +'<span class="icon-bar"></span>'
+            +'</button>'
+          +'</div>'
+            + '<div class="collapse navbar-collapse"  id="pagination-1">'
+              + '<ul class="nav navbar-nav">'
+                + '<li><a href="javascript:void(0);" data-pagingaction="first" class="paging-nav startlink"><i class="glyphicon glyphicon-fast-backward"></i></a></li>'
                 + '<li class="divider-vertical"></li>'
-                + '<li><a href="#" data-pagingaction="previous" class="paging-nav startlink"><i class="icon-backward' + ((settings.inverse) ? ' icon-white' : '') + '"></i></a></li>'
+                + '<li><a href="javascript:void(0);" data-pagingaction="previous" class="paging-nav startlink"><i class="glyphicon glyphicon-backward"></i></a></li>'
                 + '<li class="divider-vertical"></li>'
               + '</ul>'
-              + '<form name="jump" class="navbar-form navbar-text pull-left">'
-                + '<strong>Page</strong> <input type="text" name="page" value="1" style="width:25px;" /> <strong>of <span class="total-pages">0</span></strong>'
+              + '<span class="nav navbar-text"><strong>Page</strong></span>'
+              + '<form name="jump" class="navbar-form navbar-left">'
+              +'<div class="form-group">'
+                + '<input type="text" name="page" value="1" class="form-control" style="width:35px;" /> '
+              +'</div>'  
               + '</form>'
-              + '<ul class="nav">'
+              +'<span class="nav navbar-text"><strong>of <span class="total-pages">0</span></strong></span>'
+              + '<ul class="nav navbar-nav">'
                 + '<li class="divider-vertical"></li>'
-                + '<li><a href="#" data-pagingaction="next" class="paging-nav endlink"><i class="icon-forward' + ((settings.inverse) ? ' icon-white' : '') + '"></i></a></li>'
+                + '<li><a href="javascript:void(0);" data-pagingaction="next" class="paging-nav endlink"><i class="glyphicon glyphicon-forward"></i></a></li>'
                 + '<li class="divider-vertical"></li>'
-                + '<li><a href="#" data-pagingaction="last" class="paging-nav endlink"><i class="icon-fast-forward' + ((settings.inverse) ? ' icon-white' : '') + '"></i></a></li>'
+                + '<li><a href="javascript:void(0);" data-pagingaction="last" class="paging-nav endlink"><i class="glyphicon glyphicon-fast-forward"></i></a></li>'
                 + '<li class="divider-vertical"></li>';
                 if (settings.limitdd) {
                   ui += '<li class="dropdown">'
-                        + '<a class="dropdown-toggle" data-toggle="dropdown" href="#">Limit <b class="caret"></b></a>'
+                        + '<a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);">Limit <b class="caret"></b></a>'
                         + '<ul class="dropdown-menu limitdd">';
                         for (var i = 0; i < settings.limitoptions.length; i++) {
-                          ui += '<li><a href="#" class="paging-limit" data-limit="' + settings.limitoptions[i] + '"><i class="icon-' + ((settings.limitoptions[i] === settings.limit) ? 'chevron-right' : '') + '"></i> ' + settings.limitoptions[i] + '</a></li>';
+                          ui += '<li><a href="javascript:void(0);" class="paging-limit" data-limit="' + settings.limitoptions[i] + '"><i class="' + ((settings.limitoptions[i] === settings.limit) ? 'glyphicon glyphicon-chevron-right' : '') + '"></i> ' + settings.limitoptions[i] + '</a></li>';
                         }
                         ui += '</ul>'
                       + '</li>'
@@ -349,18 +356,18 @@
     
                 if (!$.isEmptyObject(settings.sortby)) {
                   ui += '<li class="dropdown">'
-                    + '<a class="dropdown-toggle" data-toggle="dropdown" href="#">Sort By <b class="caret"></b></a>'
+                    + '<a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);">Sort By <b class="caret"></b></a>'
                       + '<ul class="dropdown-menu sortby">';
                       for (var i in settings.sortby){
-                        ui += '<li><a href="#" class="paging-filter" data-sortcol="' + i + '">';
+                        ui += '<li><a href="javascript:void(0);" class="paging-filter" data-sortcol="' + i + '">';
                         if (settings.sortcolumn && i === settings.sortcolumn) {
                           if (settings.sortdir === 'asc') {
-                            ui += '<i class="icon-arrow-up">';
+                            ui += '<i class="glyphicon glyphicon-arrow-up">';
                           } else if (settings.sortcolumn && settings.sortdir === 'desc') {
-                            ui += '<i class="icon-arrow-down">';
+                            ui += '<i class="glyphicon glyphicon-arrow-down">';
                           }
                         } else {
-                          ui += '<i class="icon-">';
+                          ui += '<i class="glyphicon glyphicon-">';
                         }
                         ui += '</i> ' + settings.sortby[i] + '</a></li>';
                       }
@@ -373,7 +380,7 @@
                 + '<span class="nav pull-right navbar-text pagingbar-counts">'
                   + '<strong>Showing <span class="first-record">0</span> - <span class="last-record">0</span> of <span class="record-count">0</span></strong>'
                 + '</span>'
-              + '</div>'
+              
             + '</div>'
           + '</div>'
         + '</div>';
@@ -432,6 +439,7 @@
         , options = typeof option == 'object' && option
       if (!data) $this.data('ajaxPager', (data = new ajaxPager(this, options)))
       if (typeof option == 'string') data[option](args);
+
     })
   }
   
